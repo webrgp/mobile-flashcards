@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import MainStatusBar from './MainStatusBar';
 
 class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <MainStatusBar barStyle='light-content' />
         <Text>Open up App.js to start working on your app!</Text>
         <Text>Changes you make will automatically reload.</Text>
         <Text>Shake your phone to open the developer menu.</Text>
