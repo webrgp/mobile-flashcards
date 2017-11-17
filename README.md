@@ -8,4 +8,4 @@ git clone https://github.com/webrgp/mobile-flashcards.git
 cd mobile-flashcards
 yarn
 yarn start
-```s
+```
