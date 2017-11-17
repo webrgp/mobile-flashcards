@@ -1,23 +1,29 @@
+import * as API from '../utils/api';
+
 import { 
   LOAD_DECKS,
-  LOAD_NEW_DECK
+  ADD_DECK,
+  CLEAR_DECKS
 } from '../actions/actionTypes';
 
 const decks = (state = {}, action) => {
 
-  const { decks, deck } = action;
-
   switch (action.type) {
     case LOAD_DECKS:
-      return {
+      return action.decks;
+    
+    case ADD_DECK:
+      const decks = {
         ...state,
-        decks
-      };
-    case LOAD_NEW_DECK:
-      return {
-        ...state,
-        decks: state.decks.concat(deck)
-      };
+        [action.deck.title]: action.deck
+      }
+      API.saveDecks(decks);
+      return decks;
+
+    case CLEAR_DECKS:
+      API.saveDecks(action.decks);
+      return action.decks;
+
     default:
       return state;
   }

@@ -2,7 +2,8 @@ import * as API from '../utils/api';
 
 import { 
   LOAD_DECKS,
-  LOAD_NEW_DECK
+  ADD_DECK,
+  CLEAR_DECKS
 } from './actionTypes'
 
 // LOAD_DECKS
@@ -11,19 +12,21 @@ export const loadDecks = decks => ({
   decks
 });
 
-// Fetch decks from API
-export const fetchDecks = () => dispatch => (
-  API.fetchDecks()
-    .then( decks => dispatch(loadDecks(decks)) )
-);
-
-// LOAD_NEW_DECK
-export const loadNewDeck = deck => ({
-  type: LOAD_NEW_DECK,
+// ADD_DECK
+export const addDeck = deck => ({
+  type: ADD_DECK,
   deck
 });
 
-export const createDeck = deck  => dispatch => (
-  API.createDeck( deck )
-    .then(deck => dispatch(loadNewDeck(deck)))
+// CLEAR_DECKS
+export const clearDecks = () => ({
+  type: CLEAR_DECKS,
+  decks: {}
+});
+
+
+// Fetch decks from API
+export const fetchDecks = () => dispatch => (
+  API.fetchDecks()
+    .then( decks => dispatch(loadDecks(JSON.parse(decks))) )
 );
