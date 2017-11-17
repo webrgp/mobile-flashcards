@@ -1,27 +1,24 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MainStatusBar from './MainStatusBar';
+import styled from 'styled-components/native';
+
+const Container = styled.View`
+  flex: 1;
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+`
 
 class Main extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <Container>
         <MainStatusBar barStyle='light-content' />
         <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      </Container>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default Main;
