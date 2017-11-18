@@ -1,36 +1,47 @@
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { darken } from 'polished';
 
 // Styles
 import { 
-  DeckItem,
   DeckItemButton,
   DeckItemButtonText,
   DeckNewItemButton,
   DeckNewItemButtonText
 } from '../utils/styles';
+import { toTitleCase } from '../utils/helpers';
 
 class DeckListItem extends Component {
+
   render() {
 
-    const { deck } = this.props;
+    const { deck, onPress } = this.props;
+
     return (
-      <DeckItem>
+      <View style={{ width: '50%'}}>
         { deck
           ? <DeckItemButton style={{ 
               backgroundColor: deck.color,
               shadowColor: darken(0.1, deck.color),
               aspectRatio: 1
             }}>
-              <DeckItemButtonText>{deck.title}</DeckItemButtonText>
+              <DeckItemButtonText>
+                { 
+                  deck.title.trim().length >= 27 
+                  ? `${toTitleCase(deck.title.trim()).substring(0, 24).trim()}...` 
+                  : toTitleCase(deck.title.trim()) 
+                }
+              </DeckItemButtonText>
             </DeckItemButton>
-          : <DeckNewItemButton style={{aspectRatio: 1}}>
+          : <DeckNewItemButton
+              onPress={onPress}
+              style={{aspectRatio: 1}}
+            >
               <DeckNewItemButtonText>+</DeckNewItemButtonText>
             </DeckNewItemButton>
         }
-      </DeckItem>
+      </View>
     );
   }
 }
