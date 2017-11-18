@@ -1,12 +1,14 @@
 // Modules
 import React, { Component } from 'react';
-import { Text, Button } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
+import { AppLoading } from 'expo';
 
 // Components
 import MainStatusBar from './MainStatusBar';
+import DeckListView from './DeckListView';
 
 // Styles
-import { Container } from '../utils/styles';
+import { MainContainer, loadFonts } from '../utils/styles';
 
 import { connect } from 'react-redux';
 import { fetchDecks, addDeck, clearDecks } from '../actions/decks';
@@ -18,7 +20,10 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchDecks();
+    loadFonts().then( () => {
+      this.props.fetchDecks()
+        .then(() => this.setState({ isReady: true}));
+    });
   }
 
   onPressCreateDeck = () => {
@@ -44,22 +49,16 @@ class Main extends Component {
 
   render() {
     
-    const { decks } = this.props;
+    const { isReady } = this.state;
+    const { decks }   = this.props;
+
+    if (isReady === false) return <AppLoading />
+    
     return (
-      <Container>
-        <MainStatusBar barStyle='light-content' />
-        <Button 
-          onPress={this.onPressCreateDeck}
-          title="Add Deck"
-          accessibilityLabel="Learn more about this purple button"
-        />
-        <Text>{JSON.stringify(decks)}</Text>
-        <Button 
-          onPress={this.onPressReset}
-          title="Clear Decks"
-          accessibilityLabel="Learn more about this purple button"
-        />
-      </Container>
+      <MainContainer>
+        <MainStatusBar barStyle='dark-content' />
+        <DeckListView />
+      </MainContainer>
     );
   }
 }
@@ -69,3 +68,15 @@ const mapStateToProps  = ({ decks }) => ({
 });
 
 export default connect(mapStateToProps, { fetchDecks, addDeck, clearDecks })(Main);
+
+/* <TouchableOpacity
+  onPress={this.onPressCreateDeck}
+>
+  <ButtonText>Add Deck</ButtonText>
+</TouchableOpacity>
+<Text>{JSON.stringify(decks)}</Text>
+<TouchableOpacity
+  onPress={this.onPressReset}
+>
+  <ButtonText>Clear Decks</ButtonText>
+</TouchableOpacity> */
