@@ -18,9 +18,6 @@ export const DeckListContainer = styled.View`
   margin-left: 20px;
 `
 
-export const DeckItem = styled.View`
-  width: 50%;
-`
 export const DeckItemButton = styled.TouchableOpacity`
   background-color: ${lightGray};
   border-radius: 8px;
