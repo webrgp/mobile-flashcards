@@ -1,10 +1,10 @@
 // Modules
 import React, { Component } from 'react';
 import { View, TouchableOpacity } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 import { AppLoading } from 'expo';
 
 // Components
-import MainStatusBar from './MainStatusBar';
 import DeckListView from './DeckListView';
 
 // Styles
@@ -12,6 +12,15 @@ import { MainContainer, loadFonts } from '../utils/styles';
 
 import { connect } from 'react-redux';
 import { fetchDecks, addDeck, clearDecks } from '../actions/decks';
+import { white } from '../utils/colors';
+
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: DeckListView
+  }
+}, {
+  headerMode: 'none' 
+});
 
 class Main extends Component {
 
@@ -23,23 +32,6 @@ class Main extends Component {
     loadFonts().then( () => {
       this.props.fetchDecks()
         .then(() => this.setState({ isReady: true}));
-    });
-  }
-
-  onPressCreateDeck = () => {
-    
-    this.props.addDeck({
-      title: 'React',
-      questions: [
-        {
-          question: 'What is React?',
-          answer: 'A library for managing user interfaces'
-        },
-        {
-          question: 'Where do you make Ajax requests in React?',
-          answer: 'The componentDidMount lifecycle event'
-        }
-      ]
     });
   }
 
@@ -56,8 +48,7 @@ class Main extends Component {
     
     return (
       <MainContainer>
-        <MainStatusBar barStyle='dark-content' />
-        <DeckListView />
+        <MainNavigator />
       </MainContainer>
     );
   }
