@@ -23,11 +23,12 @@ const decks = (state = {}, action) => {
 
     case REMOVE_DECK:
       const remainingDecks = Object.keys(state)
-        .filter( key => action.deck.title !== key)
+        .filter( key => action.id !== key)
         .reduce( (deck, key) => {
           deck[key] = state[key];
           return deck;
-        });
+        }, {});
+      API.saveDecks(remainingDecks);
       return remainingDecks;
 
 

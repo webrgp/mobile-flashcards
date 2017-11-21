@@ -20,9 +20,9 @@ export const addDeck = deck => ({
 });
 
 // REMOVE_DECK
-export const removeDeck = deck => ({
+export const removeDeck = id => ({
   type: REMOVE_DECK,
-  deck
+  id
 });
 
 // CLEAR_DECKS
