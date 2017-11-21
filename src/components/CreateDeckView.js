@@ -42,8 +42,8 @@ class CreateDeckView extends Component {
       const goToDeckAction = NavigationActions.reset({
         index: 1,
         actions: [
-          NavigationActions.navigate('DeckList'),
-          NavigationActions.navigate('Deck', {deck})
+          NavigationActions.navigate({ routeName: 'DeckList'}),
+          NavigationActions.navigate({ routeName: 'DeckDetail', params : { id: deckName }})
         ]
       });
       this.props.navigation.dispatch(goToDeckAction);
