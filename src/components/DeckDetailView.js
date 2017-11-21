@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import { white, lightBlue } from '../utils/colors';
 import { HeaderText, BtnText, MainContainer } from '../utils/styles';
 import { Ionicons } from '@expo/vector-icons';
 
-class DeckView extends Component {
+class DeckDetailView extends Component {
 
-  static navigationOptions = ({ navigation }) => {
-    const { deck } = navigation.state.params;
-
-    return {
+  static navigationOptions = ({ navigation, screenProps }) => {
+    const { id } = navigation.state.params;
+    const deck = screenProps.decks[id];
+    return deck ? {
       title: deck.title,
       headerTitle: <View
         style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}
@@ -34,8 +35,11 @@ class DeckView extends Component {
             `Remove ${deck.title} Deck`,
             'Are you sure you want to delete this deck?',
             [
-              {text: 'Cancel', onPress: () => console.log('Cancel Pressed!'), style: 'cancel'},
-              {text: 'Remove', onPress: () => console.log('OK Pressed!'), style: 'destructive'},
+              {text: 'Cancel', onPress: () => false, style: 'cancel'},
+              {text: 'Remove', onPress: () => {
+                navigation.goBack();
+                screenProps.removeDeckById(id);
+              }, style: 'destructive'},
             ]
           );
         }}
@@ -43,19 +47,31 @@ class DeckView extends Component {
       >
         <Ionicons name="ios-trash" size={32} color={white} />
       </TouchableOpacity>
-    }
+    } : {}
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return nextProps.deck;
   }
   
   render() {
 
-    const { deck } = this.props.navigation.state.params;
+    const { deck } = this.props;
 
     return (
       <MainContainer>
         <HeaderText style={{ color: deck.color }}>{deck.title}</HeaderText>
+
       </MainContainer>
     );
   }
 }
 
-export default DeckView;
+const mapStateToProps  = ({ decks }, { navigation }) => {
+  const { id } = navigation.state.params;
+  return {
+    deck: decks[id] ? decks[id] : false
+  };
+};
+
+export default connect(mapStateToProps)(DeckDetailView);

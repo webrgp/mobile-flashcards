@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { removeDeck } from '../actions/decks';
 import { Text, View, ScrollView, Image } from 'react-native';
 import DeckListItem from './DeckListItem';
 
@@ -37,8 +38,8 @@ class DeckListView extends Component {
     this.props.navigation.navigate('CreateDeck');
   }
 
-  onPressViewDeck = (deck) => {
-    this.props.navigation.navigate('Deck', {deck});
+  onPressViewDeck = (key) => {
+    this.props.navigation.navigate('DeckDetail', { id: key });
   }
 
   render() {
@@ -55,8 +56,8 @@ class DeckListView extends Component {
             <DeckListItem onPress={this.onPressCreateDeck} />
             { decks && Object.keys(decks).map( key => (
               <DeckListItem 
-                onPress={() => {this.onPressViewDeck(decks[key])}} 
-                key={decks[key].title} 
+                onPress={() => {this.onPressViewDeck(key)}} 
+                key={key}
                 deck={decks[key]} />
             ))}
           </DeckListContainer>
@@ -70,4 +71,4 @@ const mapStateToProps  = ({ decks }) => ({
   decks
 });
 
-export default connect(mapStateToProps)(DeckListView);
+export default connect(mapStateToProps, {removeDeck})(DeckListView);

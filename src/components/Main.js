@@ -7,14 +7,14 @@ import { AppLoading } from 'expo';
 // Components
 import DeckListView from './DeckListView';
 import CreateDeckView from './CreateDeckView';
-import DeckView from './DeckView';
+import DeckDetailView from './DeckDetailView';
 
 
 // Styles
 import { MainContainer, loadFonts } from '../utils/styles';
 
 import { connect } from 'react-redux';
-import { fetchDecks, addDeck, clearDecks } from '../actions/decks';
+import { fetchDecks, addDeck, removeDeck } from '../actions/decks';
 import { white, lightBlue } from '../utils/colors';
 
 const MainNavigator = StackNavigator({
@@ -24,8 +24,9 @@ const MainNavigator = StackNavigator({
   CreateDeck: {
     screen: CreateDeckView
   },
-  Deck: {
-    screen: DeckView
+  DeckDetail: {
+    screen: DeckDetailView,
+    path: 'deck/:id'
   }
 }, {
   initialRouteName: 'DeckList'
@@ -44,8 +45,8 @@ class Main extends Component {
     });
   }
 
-  onPressReset = () => {
-    this.props.clearDecks();
+  removeDeckById = (id) => {
+    this.props.removeDeck(id);
   }
 
   render() {
@@ -57,7 +58,7 @@ class Main extends Component {
     
     return (
       <MainContainer>
-        <MainNavigator />
+        <MainNavigator screenProps={{decks, removeDeckById: this.removeDeckById }} />
       </MainContainer>
     );
   }
@@ -67,4 +68,4 @@ const mapStateToProps  = ({ decks }) => ({
   decks
 });
 
-export default connect(mapStateToProps, { fetchDecks, addDeck, clearDecks })(Main);
+export default connect(mapStateToProps, { fetchDecks, addDeck, removeDeck })(Main);
