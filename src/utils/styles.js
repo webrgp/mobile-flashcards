@@ -69,7 +69,15 @@ export const HeaderText = styled.Text`
   font-size: 32px;
   text-align: center;
   font-family: 'Nunito-Bold';
-  margin: 30px 20px 30px;
+  margin: 30px 20px 0px;
+`
+
+export const SubHeaderText = styled.Text`
+  color: ${gray};
+  font-size: 24px;
+  text-align: center;
+  font-family: 'Nunito-Bold';
+  margin: 10px 20px;
 `
 
 export const BtnText = styled.Text`

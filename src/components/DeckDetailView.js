@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Image, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { white, lightGray, gray } from '../utils/colors';
-import { HeaderText, BtnText, MainContainer } from '../utils/styles';
+import { HeaderText, SubHeaderText, BtnText, MainContainer } from '../utils/styles';
 import { Ionicons } from '@expo/vector-icons';
 
 class DeckDetailView extends Component {
@@ -62,7 +62,14 @@ class DeckDetailView extends Component {
     return (
       <MainContainer>
         <HeaderText style={{ color: deck.color }}>{deck.title}</HeaderText>
-
+        <SubHeaderText>
+        {
+          deck.questions.length
+          ? deck.questions.length
+          : 'No'
+        }
+        {` Card${ deck.questions.length !== 1 ? 's' : '' }`}
+        </SubHeaderText>
         <TouchableOpacity
           onPress={ () => { console.log('Start Quiz') }}
           disabled={ deck.questions.length === 0 }
