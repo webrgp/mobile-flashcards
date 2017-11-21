@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Image, TouchableOpacity, Alert } from 'react-native';
-import { white, lightBlue } from '../utils/colors';
+import { white, lightGray, gray } from '../utils/colors';
 import { HeaderText, BtnText, MainContainer } from '../utils/styles';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -60,7 +60,21 @@ class DeckDetailView extends Component {
 
     return (
       <MainContainer>
+
         <HeaderText style={{ color: deck.color }}>{deck.title}</HeaderText>
+
+        <TouchableOpacity
+          onPress={ () => { console.log('Start Quiz') }}
+          disabled={ deck.questions.length === 0 }
+        >
+          <BtnText style={ deck.questions.length === 0 ? { backgroundColor: lightGray, color: gray } : {} }>Start Quiz</BtnText>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={ () => { console.log('Add Question') }}
+        >
+          <BtnText>Add Question</BtnText>
+        </TouchableOpacity>
 
       </MainContainer>
     );
