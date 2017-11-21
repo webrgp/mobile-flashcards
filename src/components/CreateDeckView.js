@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, Button, TextInput, TouchableOpacity, ScrollView } from 'react-native';
-import { SafeAreaView, NavigationActions  } from 'react-navigation';
+import { NavigationActions  } from 'react-navigation';
 import { connect } from 'react-redux';
-import { addDeck } from '../actions/decks';
+import { saveDeck } from '../actions/decks';
 import TextField from './TextField';
 
 import { getRandomColor, white, lightBlue, lightGray, gray, red } from '../utils/colors';
-import { HeaderText, BtnText } from '../utils/styles';
+import { HeaderText, BtnText, KeyboardAvoidingContainer } from '../utils/styles';
 
 class CreateDeckView extends Component {
 
@@ -29,6 +29,10 @@ class CreateDeckView extends Component {
     showError: false
   }
 
+  componentDidMount() {
+
+  }
+
   validateDeckName = () => {
     const { decks } = this.props;
     const deckName = this.state.text.trim();
@@ -38,7 +42,7 @@ class CreateDeckView extends Component {
         color: getRandomColor(),
         questions: []
       };
-      this.props.addDeck(deck);
+      this.props.saveDeck(deck);
       const goToDeckAction = NavigationActions.reset({
         index: 1,
         actions: [
@@ -52,17 +56,13 @@ class CreateDeckView extends Component {
     }
   }
 
-  saveDeck = () => {
-    console.log('saved');
-  }
-
   render() {
 
     const isEmpty = this.state.text.trim() === '';
     const { showError } = this.state;
 
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: white }}>
+      <KeyboardAvoidingContainer style={{ flex: 1, backgroundColor: white }}>
         <ScrollView style={{ flex: 1 }}>
           { 
             showError
@@ -71,7 +71,8 @@ class CreateDeckView extends Component {
           }
           
           <TextField 
-            placeholder="Javascript"
+            ref={this.focusDeckNameInput}
+            autoFocus={true}
             onChangeText={(text) => this.setState({text})}
           />
           <TouchableOpacity
@@ -81,7 +82,7 @@ class CreateDeckView extends Component {
             <BtnText style={ isEmpty ? { backgroundColor: lightGray, color: gray } : {} }>Add New Deck</BtnText>
           </TouchableOpacity>
         </ScrollView>
-      </SafeAreaView>
+      </KeyboardAvoidingContainer>
     );
   }
 }
@@ -90,4 +91,4 @@ const mapStateToProps  = ({ decks }) => ({
   decks
 });
 
-export default connect(mapStateToProps, {addDeck})(CreateDeckView);
+export default connect(mapStateToProps, {saveDeck})(CreateDeckView);

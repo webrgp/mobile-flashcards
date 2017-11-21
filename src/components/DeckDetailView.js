@@ -28,6 +28,7 @@ class DeckDetailView extends Component {
       headerTitleStyle: {
         color: white
       },
+      headerBackTitle: null,
       headerTintColor: white,
       headerRight: <TouchableOpacity
         onPress={ () => { 
@@ -56,7 +57,7 @@ class DeckDetailView extends Component {
   
   render() {
 
-    const { deck } = this.props;
+    const { deck, navigation } = this.props;
 
     return (
       <MainContainer>
@@ -71,7 +72,7 @@ class DeckDetailView extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={ () => { console.log('Add Question') }}
+          onPress={ () => { navigation.navigate('AddQuestion', { id: deck.title }) }}
         >
           <BtnText>Add Question</BtnText>
         </TouchableOpacity>

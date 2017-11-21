@@ -9,6 +9,11 @@ export const MainContainer = styled.View`
   justify-content: flex-start;
 `
 
+export const KeyboardAvoidingContainer = styled.KeyboardAvoidingView`
+  flex: 1;
+  background-color: ${white};
+`
+
 export const DeckListContainer = styled.View`
   flex: 1;
   flex-direction: row;

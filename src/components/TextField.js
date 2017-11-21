@@ -15,16 +15,30 @@ class TextField extends Component {
     });
   }
 
+  onBlur = () => {
+    this.setState({
+      borderColor: lightGray
+    });
+  }
+
+  handleKeyDown = (e) => {
+    console.log(e);
+  }
+
   render() {
 
     const { borderColor } = this.state;
-    const { placeholder, onChangeText } = this.props;
+    const { placeholder, onChangeText, autoFocus, multiline, numberOfLines } = this.props;
 
     return (
       <TextInputField 
         placeholder={placeholder}
         onChangeText={onChangeText}
-        onFocus={ () => {this.onFocus()}} style={{borderColor}} 
+        autoFocus={autoFocus}
+        multiline={multiline}
+        onFocus={ () => {this.onFocus()}} 
+        onBlur={ () => {this.onBlur()}} 
+        style={{borderColor}} 
       />
     );
   }
