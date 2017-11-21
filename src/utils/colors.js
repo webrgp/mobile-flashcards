@@ -1,8 +1,5 @@
 const colors = {
-  white: '#fff',
-  pearl: '#fafafa',
   orange: '#ffa200',
-  lightGray: '#e8edf0',
   gray: '#86afbb',
   lightBlue: '#0197f6',
   blue: '#446eff',
@@ -11,10 +8,10 @@ const colors = {
 }
 
 
-export const white = colors['white'];
-export const pearl = colors['pearl'];
+export const white = '#fff';
+export const pearl = '#fafafa';
 export const orange = colors['orange'];
-export const lightGray = colors['lightGray'];
+export const lightGray = '#e8edf0';
 export const gray = colors['gray'];
 export const lightBlue = colors['lightBlue'];
 export const blue = colors['blue'];
