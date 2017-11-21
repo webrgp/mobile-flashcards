@@ -18,9 +18,14 @@ class TextField extends Component {
   render() {
 
     const { borderColor } = this.state;
+    const { placeholder, onChangeText } = this.props;
 
     return (
-      <TextInputField onFocus={ () => {this.onFocus()}} style={{borderColor}} />
+      <TextInputField 
+        placeholder={placeholder}
+        onChangeText={onChangeText}
+        onFocus={ () => {this.onFocus()}} style={{borderColor}} 
+      />
     );
   }
 }
