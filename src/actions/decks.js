@@ -5,7 +5,7 @@ import {
   ADD_DECK,
   CLEAR_DECKS,
   REMOVE_DECK
-} from './actionTypes'
+} from './actionTypes';
 
 // LOAD_DECKS
 export const loadDecks = decks => ({
