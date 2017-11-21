@@ -29,11 +29,16 @@ class DeckListView extends Component {
         color: white
       },
       headerTintColor: white,
+      headerBackTitle: null
     }
   }
 
   onPressCreateDeck = () => {
-    this.props.navigation.navigate('CreateDeckView');
+    this.props.navigation.navigate('CreateDeck');
+  }
+
+  onPressViewDeck = (deck) => {
+    this.props.navigation.navigate('Deck', {deck});
   }
 
   render() {
@@ -49,7 +54,10 @@ class DeckListView extends Component {
           <DeckListContainer>
             <DeckListItem onPress={this.onPressCreateDeck} />
             { decks && Object.keys(decks).map( key => (
-              <DeckListItem key={decks[key].title} deck={decks[key]} />
+              <DeckListItem 
+                onPress={() => {this.onPressViewDeck(decks[key])}} 
+                key={decks[key].title} 
+                deck={decks[key]} />
             ))}
           </DeckListContainer>
         </ScrollView>

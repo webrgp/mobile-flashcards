@@ -7,7 +7,7 @@ import { AppLoading } from 'expo';
 // Components
 import DeckListView from './DeckListView';
 import CreateDeckView from './CreateDeckView';
-import MainStatusBar from './MainStatusBar';
+import DeckView from './DeckView';
 
 
 // Styles
@@ -18,14 +18,17 @@ import { fetchDecks, addDeck, clearDecks } from '../actions/decks';
 import { white, lightBlue } from '../utils/colors';
 
 const MainNavigator = StackNavigator({
-  DeckListView: {
+  DeckList: {
     screen: DeckListView
   },
-  CreateDeckView: {
+  CreateDeck: {
     screen: CreateDeckView
+  },
+  Deck: {
+    screen: DeckView
   }
 }, {
-  initialRouteName: 'DeckListView'
+  initialRouteName: 'DeckList'
 });
 
 class Main extends Component {
@@ -54,7 +57,6 @@ class Main extends Component {
     
     return (
       <MainContainer>
-        <MainStatusBar backgroundColor={lightBlue} barStyle='light-content' />
         <MainNavigator />
       </MainContainer>
     );
@@ -66,15 +68,3 @@ const mapStateToProps  = ({ decks }) => ({
 });
 
 export default connect(mapStateToProps, { fetchDecks, addDeck, clearDecks })(Main);
-
-/* <TouchableOpacity
-  onPress={this.onPressCreateDeck}
->
-  <ButtonText>Add Deck</ButtonText>
-</TouchableOpacity>
-<Text>{JSON.stringify(decks)}</Text>
-<TouchableOpacity
-  onPress={this.onPressReset}
->
-  <ButtonText>Clear Decks</ButtonText>
-</TouchableOpacity> */

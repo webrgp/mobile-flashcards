@@ -26,7 +26,7 @@ class DeckListItem extends Component {
               backgroundColor: deck.color,
               shadowColor: darken(0.1, deck.color),
               aspectRatio: 1
-            }}>
+            }} onPress={onPress}>
               <DeckItemButtonText>
                 { 
                   deck.title.trim().length >= 25 
@@ -34,7 +34,14 @@ class DeckListItem extends Component {
                   : toTitleCase(deck.title.trim()) 
                 }
               </DeckItemButtonText>
-              <DeckItemCardCountText>{5} Cards</DeckItemCardCountText>
+              <DeckItemCardCountText>
+                {
+                  deck.questions.length
+                  ? deck.questions.length
+                  : 'No'
+                }
+                {` Card${ deck.questions.length !== 1 ? 's' : '' }`}
+              </DeckItemCardCountText>
             </DeckItemButton>
           : <DeckNewItemButton
               onPress={onPress}
