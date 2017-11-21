@@ -2,7 +2,7 @@ import * as API from '../utils/api';
 
 import { 
   LOAD_DECKS,
-  ADD_DECK,
+  SAVE_DECK,
   CLEAR_DECKS,
   REMOVE_DECK
 } from './actionTypes';
@@ -13,9 +13,9 @@ export const loadDecks = decks => ({
   decks
 });
 
-// ADD_DECK
-export const addDeck = deck => ({
-  type: ADD_DECK,
+// SAVE_DECK
+export const saveDeck = deck => ({
+  type: SAVE_DECK,
   deck
 });
 
