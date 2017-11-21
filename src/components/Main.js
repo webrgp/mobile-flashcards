@@ -6,20 +6,26 @@ import { AppLoading } from 'expo';
 
 // Components
 import DeckListView from './DeckListView';
+import CreateDeckView from './CreateDeckView';
+import MainStatusBar from './MainStatusBar';
+
 
 // Styles
 import { MainContainer, loadFonts } from '../utils/styles';
 
 import { connect } from 'react-redux';
 import { fetchDecks, addDeck, clearDecks } from '../actions/decks';
-import { white } from '../utils/colors';
+import { white, lightBlue } from '../utils/colors';
 
 const MainNavigator = StackNavigator({
-  Home: {
+  DeckListView: {
     screen: DeckListView
+  },
+  CreateDeckView: {
+    screen: CreateDeckView
   }
 }, {
-  headerMode: 'none' 
+  initialRouteName: 'DeckListView'
 });
 
 class Main extends Component {
@@ -48,6 +54,7 @@ class Main extends Component {
     
     return (
       <MainContainer>
+        <MainStatusBar backgroundColor={lightBlue} barStyle='light-content' />
         <MainNavigator />
       </MainContainer>
     );
