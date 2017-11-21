@@ -15,6 +15,7 @@ export const DeckListContainer = styled.View`
   flex-wrap: wrap;
   justify-content: flex-start;
   margin-top: 20px;
+  margin-bottom: 20px;
   margin-left: 20px;
 `
 
