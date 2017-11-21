@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Text, View, ScrollView, Image } from 'react-native';
 import DeckListItem from './DeckListItem';
-import { addDeck } from '../actions/decks';
-
 
 // Styles
 import { DeckListContainer } from '../utils/styles';
@@ -40,22 +38,7 @@ class DeckListView extends Component {
 
   render() {
 
-    // const { decks }   = this.props;
-
-    const decks = {
-      Javascript: {
-        title: 'Javascript',
-        color: red
-      },
-      'React Native': {
-        title: 'React native practice',
-        color: green
-      },
-      'ASdaszdaskmslmdadas dasdaskdas dsa': {
-        title: '1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 ds4567890',
-        color: blue
-      }
-    }
+    const { decks }   = this.props;
 
     return (
       <View  style={{ flex: 1}}>
@@ -79,4 +62,4 @@ const mapStateToProps  = ({ decks }) => ({
   decks
 });
 
-export default connect(mapStateToProps, {addDeck})(DeckListView);
+export default connect(mapStateToProps)(DeckListView);
