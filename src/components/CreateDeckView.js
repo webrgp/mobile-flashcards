@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, Button, TextInput, TouchableOpacity, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView, NavigationActions  } from 'react-navigation';
 import { connect } from 'react-redux';
 import { addDeck } from '../actions/decks';
 import TextField from './TextField';
 
-import { getRandomColor, white, lightBlue, lightGray, gray } from '../utils/colors';
-import { NewDeckTitle, BtnText } from '../utils/styles';
+import { getRandomColor, white, lightBlue, lightGray, gray, red } from '../utils/colors';
+import { HeaderText, BtnText } from '../utils/styles';
 
 class CreateDeckView extends Component {
 
@@ -31,14 +31,22 @@ class CreateDeckView extends Component {
 
   validateDeckName = () => {
     const { decks } = this.props;
-    if (!(this.state.text in decks)) {
+    const deckName = this.state.text.trim();
+    if (!(deckName in decks)) {
       const deck = {
-        title: this.state.text.trim(),
+        title: deckName,
         color: getRandomColor(),
         questions: []
       };
       this.props.addDeck(deck);
-      this.props.navigation.goBack('DeckListView');
+      const goToDeckAction = NavigationActions.reset({
+        index: 1,
+        actions: [
+          NavigationActions.navigate('DeckList'),
+          NavigationActions.navigate('Deck', {deck})
+        ]
+      });
+      this.props.navigation.dispatch(goToDeckAction);
     } else {
       this.setState({ showError: true });
     }
@@ -50,17 +58,18 @@ class CreateDeckView extends Component {
 
   render() {
 
-    const isEmpty = this.state.text === '';
-
-    // Javascript: {
-    //   title: 'Javascript',
-    //   color: red
-    // }
+    const isEmpty = this.state.text.trim() === '';
+    const { showError } = this.state;
 
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: white }}>
         <ScrollView style={{ flex: 1 }}>
-          <NewDeckTitle>What's the title of your new deck?</NewDeckTitle>
+          { 
+            showError
+            ? <HeaderText style={{ color: red }}>A deck with this name already exists. Please enter another.</HeaderText>
+            : <HeaderText>What's the title of your new deck?</HeaderText>
+          }
+          
           <TextField 
             placeholder="Javascript"
             onChangeText={(text) => this.setState({text})}
