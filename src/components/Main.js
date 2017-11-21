@@ -8,7 +8,7 @@ import { AppLoading } from 'expo';
 import DeckListView from './DeckListView';
 import CreateDeckView from './CreateDeckView';
 import DeckDetailView from './DeckDetailView';
-
+import AddQuestionView from './AddQuestionView';
 
 // Styles
 import { MainContainer, loadFonts } from '../utils/styles';
@@ -27,6 +27,9 @@ const MainNavigator = StackNavigator({
   DeckDetail: {
     screen: DeckDetailView,
     path: 'deck/:id'
+  },
+  AddQuestion: {
+    screen: AddQuestionView
   }
 }, {
   initialRouteName: 'DeckList'
