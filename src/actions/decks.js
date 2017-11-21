@@ -3,7 +3,8 @@ import * as API from '../utils/api';
 import { 
   LOAD_DECKS,
   ADD_DECK,
-  CLEAR_DECKS
+  CLEAR_DECKS,
+  REMOVE_DECK
 } from './actionTypes'
 
 // LOAD_DECKS
@@ -15,6 +16,12 @@ export const loadDecks = decks => ({
 // ADD_DECK
 export const addDeck = deck => ({
   type: ADD_DECK,
+  deck
+});
+
+// REMOVE_DECK
+export const removeDeck = deck => ({
+  type: REMOVE_DECK,
   deck
 });
 

@@ -3,6 +3,7 @@ import * as API from '../utils/api';
 import { 
   LOAD_DECKS,
   ADD_DECK,
+  REMOVE_DECK,
   CLEAR_DECKS
 } from '../actions/actionTypes';
 
@@ -19,6 +20,16 @@ const decks = (state = {}, action) => {
       }
       API.saveDecks(decks);
       return decks;
+
+    case REMOVE_DECK:
+      const remainingDecks = Object.keys(state)
+        .filter( key => action.deck.title !== key)
+        .reduce( (deck, key) => {
+          deck[key] = state[key];
+          return deck;
+        });
+      return remainingDecks;
+
 
     case CLEAR_DECKS:
       API.saveDecks(action.decks);
