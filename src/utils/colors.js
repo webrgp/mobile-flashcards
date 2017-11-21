@@ -10,6 +10,7 @@ const colors = {
 
 export const white = '#fff';
 export const pearl = '#fafafa';
+export const charcoal = '#36454F';
 export const orange = colors['orange'];
 export const lightGray = '#e8edf0';
 export const gray = colors['gray'];
