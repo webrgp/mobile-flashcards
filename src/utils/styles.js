@@ -72,15 +72,6 @@ export const HeaderText = styled.Text`
   margin: 30px 20px 30px;
 `
 
-export const TextInputField = styled.TextInput`
-  font-size: 24px;
-  font-family: 'Nunito-Bold';
-  margin: 20px 20px;
-  border-color: ${lightGray};
-  border-bottom-width: 1;
-  padding: 5px 0px;
-`
-
 export const BtnText = styled.Text`
   background-color: ${lightBlue};
   font-family: 'Nunito-Regular';

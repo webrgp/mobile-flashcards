@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInputField } from '../utils/styles';
+import { TextInput } from 'react-native';
 import { lightGray, lightBlue } from '../utils/colors';
 import { borderColor } from 'polished';
 
@@ -21,8 +21,12 @@ class TextField extends Component {
     });
   }
 
-  handleKeyDown = (e) => {
-    console.log(e);
+  clearText = () => {
+    this.refs.TextInput.setNativeProps({text: ''});
+  }
+
+  setFocus = () => {
+    this.refs.TextInput.focus();
   }
 
   render() {
@@ -31,17 +35,28 @@ class TextField extends Component {
     const { placeholder, onChangeText, autoFocus, multiline, numberOfLines } = this.props;
 
     return (
-      <TextInputField 
+      <TextInput
+        ref="TextInput"
         placeholder={placeholder}
         onChangeText={onChangeText}
         autoFocus={autoFocus}
         multiline={multiline}
         onFocus={ () => {this.onFocus()}} 
         onBlur={ () => {this.onBlur()}} 
-        style={{borderColor}} 
+        style={{ ...inputStyles, borderColor }} 
       />
     );
   }
+}
+
+const inputStyles = {
+  fontSize: 24,
+  fontFamily: 'Nunito-Bold',
+  margin: 20,
+  borderColor: lightGray,
+  borderBottomWidth: 1,
+  paddingTop: 5,
+  paddingBottom: 5
 }
 
 export default TextField;
