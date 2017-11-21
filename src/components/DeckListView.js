@@ -1,24 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView, Image } from 'react-native';
 import DeckListItem from './DeckListItem';
-import MainStatusBar from './MainStatusBar';
 import { addDeck } from '../actions/decks';
+
 
 // Styles
 import { DeckListContainer } from '../utils/styles';
-import { white, red, green, blue } from '../utils/colors';
+import { white, red, green, blue, lightBlue } from '../utils/colors';
 
 class DeckListView extends Component {
 
   static navigationOptions = ({navigation}) => {
     return {
-      title: 'UdaciCards'
+      title: 'UdaciCards',
+      headerTitle: <View
+        style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}
+      >
+        <Image 
+          style={{width: 18, height: 18}}
+          source={require('../../assets/images/Deck.png')} />
+        <Text
+          style={{ color: white, marginLeft: 10, fontSize: 22, fontFamily: 'Nunito-Light' }}
+        >Udaci<Text style={{ fontFamily: 'Nunito-Bold' }}>Cards</Text></Text>
+      </View>,
+      headerStyle: {
+        backgroundColor: lightBlue
+      },
+      headerTitleStyle: {
+        color: white
+      },
+      headerTintColor: white,
     }
   }
 
   onPressCreateDeck = () => {
-    console.log('pressed');
+    this.props.navigation.navigate('CreateDeckView');
   }
 
   render() {
@@ -35,22 +52,24 @@ class DeckListView extends Component {
         color: green
       },
       'ASdaszdaskmslmdadas dasdaskdas dsa': {
-        title: 'ASda sd ask ms lm dadas dasdaskdas dsa',
+        title: '1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 ds4567890',
         color: blue
       }
     }
 
     return (
-      <View style={{ flex: 1}}>
-        <MainStatusBar backgroundColor={white} barStyle='dark-content' />
-        <ScrollView style={{ backgroundColor: white }}>
+      <View  style={{ flex: 1}}>
+        <ScrollView 
+          style={{ backgroundColor: white }}
+          contentInsetAdjustmentBehavior="automatic"
+        >
           <DeckListContainer>
             <DeckListItem onPress={this.onPressCreateDeck} />
             { decks && Object.keys(decks).map( key => (
               <DeckListItem key={decks[key].title} deck={decks[key]} />
             ))}
           </DeckListContainer>
-      </ScrollView>
+        </ScrollView>
       </View>
     );
   }

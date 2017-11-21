@@ -8,7 +8,8 @@ import {
   DeckItemButton,
   DeckItemButtonText,
   DeckNewItemButton,
-  DeckNewItemButtonText
+  DeckNewItemButtonText,
+  DeckItemCardCountText
 } from '../utils/styles';
 import { toTitleCase } from '../utils/helpers';
 
@@ -28,11 +29,12 @@ class DeckListItem extends Component {
             }}>
               <DeckItemButtonText>
                 { 
-                  deck.title.trim().length >= 27 
-                  ? `${toTitleCase(deck.title.trim()).substring(0, 24).trim()}...` 
+                  deck.title.trim().length >= 25 
+                  ? `${toTitleCase(deck.title.trim()).substring(0, 22).trim()}...` 
                   : toTitleCase(deck.title.trim()) 
                 }
               </DeckItemButtonText>
+              <DeckItemCardCountText>{5} Cards</DeckItemCardCountText>
             </DeckItemButton>
           : <DeckNewItemButton
               onPress={onPress}
