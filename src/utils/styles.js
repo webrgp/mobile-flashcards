@@ -58,7 +58,7 @@ export const DeckNewItemButtonText = DeckItemButtonText.extend`
   align-self: center;
 `
 
-export const NewDeckTitle = styled.Text`
+export const HeaderText = styled.Text`
   color: ${lightBlue};
   font-size: 32px;
   text-align: center;
