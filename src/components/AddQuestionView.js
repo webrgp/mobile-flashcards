@@ -30,14 +30,12 @@ class AddQuestionView extends Component {
   state = {
     question: '',
     answer: '',
-    isLoading: false
+    addedAtLeastOne: false
   }
 
   save = () => {
     const { deck } = this.props;
     const { question, answer, isLoading } = this.state;
-
-    this.setState({ isLoading: true });
 
     deck.questions.push({
       question: question,
@@ -49,7 +47,7 @@ class AddQuestionView extends Component {
     this.setState({
       question: '',
       answer: '',
-      isLoading: false
+      addedAtLeastOne: true
     });
 
     this.clearFields();
@@ -64,6 +62,7 @@ class AddQuestionView extends Component {
   render() {
 
     const isEmpty = this.state.question === '' || this.state.answer === '';
+    const { navigation } = this.props;
 
     return (
       <KeyboardAvoidingContainer behavior='padding'>
@@ -90,6 +89,14 @@ class AddQuestionView extends Component {
           >
             <BtnText style={ isEmpty ? { backgroundColor: lightGray, color: gray } : {} }>Save & Add Another</BtnText>
           </TouchableOpacity>
+
+          { this.state.addedAtLeastOne && (
+            <TouchableOpacity
+              onPress={ () => {navigation.goBack()} }
+            >
+              <BtnText>I am done</BtnText>
+            </TouchableOpacity>
+          )}
       </KeyboardAvoidingContainer>
     );
   }
