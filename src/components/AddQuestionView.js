@@ -35,8 +35,30 @@ class AddQuestionView extends Component {
 
   save = () => {
     const { deck } = this.props;
+    const { question, answer, isLoading } = this.state;
+
+    this.setState({ isLoading: true });
+
+    deck.questions.push({
+      question: question,
+      answer: answer
+    });
+
+    this.props.saveDeck(deck);
     
-    console.log(deck);
+    this.setState({
+      question: '',
+      answer: '',
+      isLoading: false
+    });
+
+    this.clearFields();
+  }
+
+  clearFields = () => {
+    this._answerInput.clearText();
+    this._questionInput.clearText();
+    this._questionInput.setFocus();
   }
 
   render() {
@@ -46,18 +68,20 @@ class AddQuestionView extends Component {
     return (
       <KeyboardAvoidingContainer behavior='padding'>
         <TextField 
+          ref={component => this._questionInput = component}
           placeholder="Enter Question"
           autoFocus={true}
           multiline={true}
-          onChangeText={(question) => this.setState({question})}
           value={this.state.question}
+          onChangeText={(question) => this.setState({question})}
         />
 
         <TextField 
+          ref={component => this._answerInput = component}
           placeholder="Enter Answer"
           multiline={true}
-          onChangeText={(answer) => this.setState({answer})}
           value={this.state.answer}
+          onChangeText={(answer) => this.setState({answer})}
         />
 
           <TouchableOpacity
@@ -78,4 +102,4 @@ const mapStateToProps  = ({ decks }, { navigation }) => {
   };
 };
 
-export default connect(mapStateToProps, {saveDeck})(AddQuestionView);
+export default connect(mapStateToProps, { saveDeck })(AddQuestionView);

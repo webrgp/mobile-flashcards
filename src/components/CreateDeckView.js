@@ -29,20 +29,19 @@ class CreateDeckView extends Component {
     showError: false
   }
 
-  componentDidMount() {
-
-  }
-
-  validateDeckName = () => {
+  save = () => {
     const { decks } = this.props;
     const deckName = this.state.text.trim();
     if (!(deckName in decks)) {
+
       const deck = {
         title: deckName,
         color: getRandomColor(),
         questions: []
       };
+
       this.props.saveDeck(deck);
+
       const goToDeckAction = NavigationActions.reset({
         index: 1,
         actions: [
@@ -76,7 +75,7 @@ class CreateDeckView extends Component {
             onChangeText={(text) => this.setState({text})}
           />
           <TouchableOpacity
-            onPress={ () => { this.validateDeckName() }}
+            onPress={ () => { this.save() }}
             disabled={isEmpty}
           >
             <BtnText style={ isEmpty ? { backgroundColor: lightGray, color: gray } : {} }>Add New Deck</BtnText>
@@ -91,4 +90,4 @@ const mapStateToProps  = ({ decks }) => ({
   decks
 });
 
-export default connect(mapStateToProps, {saveDeck})(CreateDeckView);
+export default connect(mapStateToProps, { saveDeck })(CreateDeckView);

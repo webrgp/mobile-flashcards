@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, Image, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { white, lightGray, gray } from '../utils/colors';
 import { HeaderText, BtnText, MainContainer } from '../utils/styles';
 import { Ionicons } from '@expo/vector-icons';
@@ -61,7 +61,6 @@ class DeckDetailView extends Component {
 
     return (
       <MainContainer>
-
         <HeaderText style={{ color: deck.color }}>{deck.title}</HeaderText>
 
         <TouchableOpacity
@@ -76,7 +75,6 @@ class DeckDetailView extends Component {
         >
           <BtnText>Add Question</BtnText>
         </TouchableOpacity>
-
       </MainContainer>
     );
   }

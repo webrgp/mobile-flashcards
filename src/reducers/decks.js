@@ -1,10 +1,7 @@
-import * as API from '../utils/api';
-
 import { 
   LOAD_DECKS,
-  SAVE_DECK,
-  REMOVE_DECK,
-  CLEAR_DECKS
+  LOAD_DECK,
+  DELETE_DECK
 } from '../actions/actionTypes';
 
 const decks = (state = {}, action) => {
@@ -15,28 +12,20 @@ const decks = (state = {}, action) => {
     case LOAD_DECKS:
       return action.decks;
     
-    case SAVE_DECK:
-      decks = {
+    case LOAD_DECK:
+      return {
         ...state,
         [action.deck.title]: action.deck
+      };
+
+    case DELETE_DECK:
+      decks = {
+        ...state,
+        [action.id]: null
       }
-      API.saveDecks(decks);
+
+      delete decks[action.id];
       return decks;
-
-    case REMOVE_DECK:
-      decks = Object.keys(state)
-        .filter( key => action.id !== key)
-        .reduce( (deck, key) => {
-          deck[key] = state[key];
-          return deck;
-        }, {});
-      API.saveDecks(decks);
-      return decks;
-
-
-    case CLEAR_DECKS:
-      API.saveDecks(action.decks);
-      return action.decks;
 
     default:
       return state;
