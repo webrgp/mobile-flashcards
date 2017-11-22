@@ -9,3 +9,15 @@ cd mobile-flashcards
 yarn
 yarn start
 ```
+
+## iOS only
+
+This app has been developed and tested on iOS. Enjoy!
+
+## Screens
+
+![Screen Shot](assets/images/screens.png)
+
+
+
+This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
